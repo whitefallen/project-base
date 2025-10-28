@@ -7,7 +7,8 @@ COPY pom.xml .
 COPY src ./src
 
 # Build the application
-RUN mvn clean package -DskipTests -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+# Note: If you encounter SSL certificate issues, use Dockerfile.prebuilt instead
+RUN mvn clean package -DskipTests
 
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
