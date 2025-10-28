@@ -56,12 +56,19 @@ The application will start on `http://localhost:8080`
 
 ### Running with Docker Compose
 
-1. Build and start the application:
+**Note:** Docker Compose uses the prebuilt JAR approach. You must build the JAR first.
+
+1. Build the JAR file:
+```bash
+mvn clean package
+```
+
+2. Build and start the application with Docker Compose:
 ```bash
 docker-compose up --build
 ```
 
-2. The application will be available at `http://localhost:8080`
+3. The application will be available at `http://localhost:8080`
 
 3. To stop the application:
 ```bash
@@ -218,6 +225,25 @@ Connection details:
 - JDBC URL: `jdbc:h2:mem:cmsdb`
 - Username: `sa`
 - Password: (empty)
+
+## Docker Deployment
+
+This project includes two Dockerfile options:
+
+### Dockerfile (Multi-stage build)
+Builds the application from source inside Docker. May require SSL certificate configuration for Maven in some environments.
+```bash
+docker build -t cms-app .
+```
+
+### Dockerfile.prebuilt (Recommended)
+Uses a pre-built JAR file. Requires building the JAR locally first.
+```bash
+mvn clean package
+docker build -f Dockerfile.prebuilt -t cms-app .
+```
+
+The `docker-compose.yml` uses `Dockerfile.prebuilt` by default for reliability.
 
 ## Project Structure
 

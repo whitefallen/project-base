@@ -4,7 +4,7 @@ services:
   cms-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prebuilt
     container_name: cms-application
     ports:
       - "8080:8080"
